@@ -18,7 +18,12 @@ export const metadata: Metadata = {
   openGraph: {
     siteName: appName,
     type: 'website',
+    url: siteUrl,
   },
+  twitter: { card: 'summary_large_image' },
+  robots: { index: true, follow: true },
+  alternates: { canonical: '/' },
+  keywords: ['Claude Code', 'plugin', 'mod', 'voice', 'persona', 'agent', 'hands-free', 'macOS'],
 };
 
 export default function Layout({ children }: LayoutProps<'/'>) {
