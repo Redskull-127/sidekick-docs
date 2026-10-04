@@ -12,9 +12,10 @@ A mod runs with your permissions. Here is everything this one does outside its o
 | :- | :- |
 | `say`, `killall say` | Speak a reply in the sidekick's voice; cut it short on interrupt or `s` |
 | `say -v ?` | Learn which voices you have, to pick a natural one |
+| `afplay` | Play the two chimes, through Claude Code's audio API |
 | `mkdir -p /var/tmp/sidekick`, `swiftc …` | Compile the listener once, from the source in this plugin |
-| `/var/tmp/sidekick/listen` | Hear you, while talk mode is on |
-| `pkill -f /var/tmp/sidekick/listen` | Stop listening |
+| `/var/tmp/sidekick/listen --session <id>` | Hear you, while talk mode is on; tagged with this session's id |
+| `pkill -f` on that exact command line | Stop listening, without touching another session's listener |
 | `open x-apple.systempreferences:…SpokenContent` | Show the voice download pane, when you ask |
 
 ## Files it writes
