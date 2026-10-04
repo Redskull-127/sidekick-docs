@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { ArrowRight, AudioLines, Ear, MessageCircleQuestion, Users } from 'lucide-react';
 import { CopyCommand } from '@/components/copy-command';
 import { pluginRepoUrl } from '@/lib/shared';
+import { JsonLd, software, website } from '@/components/json-ld';
 
 const INSTALL = 'claude plugin marketplace add Redskull-127/sidekick && claude plugin install sidekick@meer-mods';
 
@@ -47,6 +48,7 @@ const loop = [
 export default function HomePage() {
   return (
     <main className="flex-1">
+      <JsonLd data={{ '@context': 'https://schema.org', '@graph': [website, software] }} />
       <section className="sk-grain border-b border-fd-border">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:pt-24">
           <div>

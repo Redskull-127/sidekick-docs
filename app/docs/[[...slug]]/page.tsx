@@ -12,6 +12,7 @@ import { getMDXComponents } from '@/components/mdx';
 import type { Metadata } from 'next';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import { getPageImageUrl, getPageMarkdownUrl, gitConfig } from '@/lib/shared';
+import { JsonLd, breadcrumbs, techArticle } from '@/components/json-ld';
 
 export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
   const params = await props.params;
@@ -20,9 +21,20 @@ export default async function Page(props: PageProps<'/docs/[[...slug]]'>) {
 
   const MDX = page.data.body;
   const markdownUrl = getPageMarkdownUrl(page).url;
+  const crumbs = [{ name: 'Sidekick', url: '/' }, { name: 'Docs', url: '/docs' }];
+  if (page.slugs.length > 0) crumbs.push({ name: page.data.title, url: page.url });
 
   return (
     <DocsPage toc={page.data.toc} full={page.data.full}>
+      <JsonLd
+        data={{
+          '@context': 'https://schema.org',
+          '@graph': [
+            techArticle({ url: page.url, title: page.data.title, description: page.data.description, image: getPageImageUrl(page).url }),
+            breadcrumbs(crumbs),
+          ],
+        }}
+      />
       <DocsTitle>{page.data.title}</DocsTitle>
       <DocsDescription className="mb-0">{page.data.description}</DocsDescription>
       <div className="flex flex-row gap-2 items-center border-b pb-6">
