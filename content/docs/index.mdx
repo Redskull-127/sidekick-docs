@@ -1,13 +1,35 @@
 ---
-title: Hello World
-description: Your first document
+title: Introduction
+description: Persona agents you can talk to inside Claude Code.
+icon: Mic
 ---
 
-Welcome to the docs! You can start writing documents in `/content/docs`.
+Sidekick is a [Claude Code mod](https://code.claude.com/docs/en/plugins/mods/overview). It hands your session to a persona you describe in one sentence, and that persona is the one talking to you: it explains, does and fixes things in character, asks you the moment it needs a decision, and speaks its replies in its own voice. In talk mode you talk back, hands-free.
 
-## What is Next?
+```text
+/sidekick new Rudy, a blunt senior Rust dev who hates abstractions
+  🦊 Rudy is ready. "Ship it or delete it."
+
+/sidekick talk
+  🎙 Talk mode on. Just speak; Rudy answers out loud and listens again.
+```
+
+## What changes
+
+- **Every reply is headed by the sidekick**: its glyph and name, the spinner says `Rudy is on it…`, the question dialog says `Rudy asks:`.
+- **It asks instead of guessing.** The persona is told to use Claude Code's question tool the moment input is needed, with short, concrete options.
+- **It is short.** The first sentence of a reply is spoken; the whole reply is a few lines unless you ask for more.
+- **You can talk to it.** Talk mode listens, sends what you said, speaks the answer, and listens again. Talk over it to interrupt.
+
+## Where to start
 
 <Cards>
-  <Card title="Learn more about Next.js" href="https://nextjs.org/docs" />
-  <Card title="Learn more about Fumadocs" href="https://fumadocs.dev" />
+  <Card title="Install" href="/docs/install" description="One marketplace, one install, macOS." />
+  <Card title="Quickstart" href="/docs/quickstart" description="Pick a sidekick and have a two-minute conversation." />
+  <Card title="Talk mode" href="/docs/talk-mode" description="The loop, interrupting, stopping, and what the band shows." />
+  <Card title="What it runs and sends" href="/docs/privacy" description="Every program, file and destination, spelled out." />
 </Cards>
+
+<Callout title="macOS only, for now">
+Speech out uses macOS speech; speech in uses macOS speech recognition. On Linux and Windows the persona works, with text only.
+</Callout>

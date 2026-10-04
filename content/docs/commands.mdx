@@ -1,0 +1,47 @@
+---
+title: Commands
+description: Everything under /sidekick, and the keys in the pane and band.
+icon: Terminal
+---
+
+One command, subcommands after it.
+
+| Command | What it does |
+| :- | :- |
+| `/sidekick` | Opens the roster pane |
+| `/sidekick new <description>` | Creates a persona from the description and makes it active |
+| `/sidekick use <name>` | Switches to a sidekick |
+| `/sidekick off` | Plain Claude; the persona section leaves the system prompt |
+| `/sidekick talk` | Toggles hands-free [talk mode](/docs/talk-mode) |
+| `/sidekick mute` · `/sidekick speak` | Stops or resumes spoken replies |
+| `/sidekick voices` | Lists installed voices and the active sidekick's resolved voice |
+| `/sidekick voices install` | Opens the System Settings pane to download natural voices |
+| `/sidekick list` | Lists every sidekick, the active one marked |
+| `/sidekick rm <name>` | Removes a sidekick |
+
+`/sidekick` runs even while Claude is working.
+
+## Pane keys
+
+| Key | Action |
+| :- | :- |
+| `1`–`9` | Switch to that sidekick |
+| `0` | Sidekick off |
+| `m` | Mute or speak |
+| `t` | Talk mode on or off |
+| `Esc` | Close the pane |
+
+## Band keys (talk mode)
+
+| Key | Action |
+| :- | :- |
+| `s` | Skip the current speech |
+| `l` | Listen now, when idle |
+| `m` | Mute or speak |
+| `x` | End talk mode |
+
+The band takes keys after `Ctrl+X Tab` or a click; `Esc` returns them to the prompt.
+
+## Setting
+
+In `/config`, the plugin has one option: **Speak replies**, on by default. `/sidekick mute` overrides it per session.

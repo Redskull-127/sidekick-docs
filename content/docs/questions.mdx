@@ -1,0 +1,34 @@
+---
+title: Questions by voice
+description: How a sidekick asks you something out loud, and how to answer.
+icon: CircleHelp
+---
+
+When Claude needs a decision it uses the AskUserQuestion tool, which normally opens a dialog. In talk mode the sidekick reads the question and its numbered options aloud and listens for your answer.
+
+```text
+❓ Deploy where?   1) Staging   2) Production
+🔊 Rudy is speaking… "Deploy where? 1: Staging. 2: Production."
+🎙 listening…
+```
+
+## Ways to answer
+
+| Say | Picks |
+| :- | :- |
+| "the second one", "two", "the last one" | By position |
+| "production", "staging please" | By name, or any distinctive word of the label |
+| "yes", "sure", "go ahead" | The option that reads like yes, run, proceed, or the recommended one |
+| "no", "skip", "cancel" | The option that reads like no, cancel, skip or refuse |
+| "one and three" | Several, when the question allows more than one |
+| "call it release candidate two" | Free text, when nothing matches and you said three or more words |
+
+You can answer while the question is still being read; the first words that aren't the sidekick's own cut the speech.
+
+## When it doesn't understand
+
+It asks once more, "Sorry, which one?", then opens the normal dialog and tells you to pick with a key. Nothing is chosen for you.
+
+## Outside talk mode
+
+The dialog opens as usual, headed with the sidekick's name. Only the heading changes.

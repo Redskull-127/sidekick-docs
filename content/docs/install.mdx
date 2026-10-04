@@ -1,0 +1,58 @@
+---
+title: Install
+description: Requirements and the two commands.
+icon: Download
+---
+
+## Requirements
+
+- **Claude Code 2.1.287 or later.** Check with `claude --version`. Mods run in the terminal and in the Desktop app's Code tab.
+- **macOS** for voice. Speech out uses the system voices; speech in uses Apple's speech recognition.
+- **Xcode Command Line Tools**, for `swiftc`. The listener is compiled once on first use. Install with `xcode-select --install` if you don't have them.
+
+## Install
+
+```sh
+claude plugin marketplace add Redskull-127/sidekick
+claude plugin install sidekick@meer-mods
+```
+
+Start a session, or run `/reload-plugins` in one that is open. `/plugin` lists it under Installed.
+
+### For one session only
+
+```sh
+git clone https://github.com/Redskull-127/sidekick
+claude --plugin-dir ./sidekick
+```
+
+## First run
+
+<Steps>
+<Step>
+### Pick a sidekick
+`/sidekick use Rudy`. Two ship: **Ada**, a calm staff engineer, and **Rudy**, a blunt senior dev. A chime confirms.
+</Step>
+<Step>
+### Say hello by typing
+Ask anything. The reply is headed `🦊 Rudy`, and its first sentence is spoken.
+</Step>
+<Step>
+### Turn on talk mode
+`/sidekick talk`. The first time, macOS asks to allow your terminal to use the microphone and speech recognition; allow both. The listener compiles once, about twenty seconds.
+</Step>
+<Step>
+### Get the natural voices
+The default macOS voices sound robotic. `/sidekick voices install` opens the pane where you download **Ava (Premium)** and **Tom (Enhanced)**. Sidekicks switch to them on their own. See [Voices](/docs/voices).
+</Step>
+</Steps>
+
+## Check what it does before you trust it
+
+Any mod runs with your permissions. List what this one hooks and calls without running it:
+
+```sh
+claude plugin validate ./sidekick
+```
+
+The `hooks:` and `calls:` lines are the whole story, and [What it runs and sends](/docs/privacy) explains each.

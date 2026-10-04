@@ -1,0 +1,20 @@
+{
+  "title": "Sidekick",
+  "root": true,
+  "pages": [
+    "index",
+    "install",
+    "quickstart",
+    "---Using it---",
+    "talk-mode",
+    "personas",
+    "questions",
+    "voices",
+    "commands",
+    "---Under the hood---",
+    "how-it-works",
+    "privacy",
+    "troubleshooting",
+    "develop"
+  ]
+}

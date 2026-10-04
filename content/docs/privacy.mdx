@@ -1,0 +1,41 @@
+---
+title: What it runs and sends
+description: Every program, file and destination, so you can decide whether to trust it.
+icon: ShieldCheck
+---
+
+A mod runs with your permissions. Here is everything this one does outside its own code. The source is short and readable, and `claude plugin validate` lists the same calls without running anything.
+
+## Programs it starts
+
+| Program | Why |
+| :- | :- |
+| `say`, `killall say` | Speak a reply in the sidekick's voice; cut it short on interrupt or `s` |
+| `say -v ?` | Learn which voices you have, to pick a natural one |
+| `mkdir -p /var/tmp/sidekick`, `swiftc …` | Compile the listener once, from the source in this plugin |
+| `/var/tmp/sidekick/listen` | Hear you, while talk mode is on |
+| `pkill -f /var/tmp/sidekick/listen` | Stop listening |
+| `open x-apple.systempreferences:…SpokenContent` | Show the voice download pane, when you ask |
+
+## Files it writes
+
+Only under `/var/tmp/sidekick/`: `listen.swift` and `Info.plist` (copied from the plugin), `listen` (the compiled binary) and `listen.version`. Your sidekicks and preferences go to Claude Code's plugin store through the mods API. Nothing in your project, nothing in your settings, no build or startup file.
+
+## What it reads
+
+The final answer of each turn, to speak its opening. Each question Claude asks, to read it aloud in talk mode. Its own version file, to know whether the listener is current.
+
+## What it sends, and where
+
+- **To Claude, through your account**: the description you type after `/sidekick new`, once, to write the persona. Nothing else, ever, from the plugin itself.
+- **To Apple's speech recognition**: your voice, on-device where the language model is installed, otherwise to Apple's servers, exactly as macOS dictation does. The plugin sees only the text.
+- **Into your conversation**: the prompts it submits are exactly the words you spoke, as transcribed. It never composes a prompt of its own.
+- **Nowhere else.** No telemetry, no analytics, no network calls.
+
+## Where it steps in
+
+It adds one section to the system prompt. In talk mode it answers the AskUserQuestion tool in the dialog's place when it understood you. "Stop" spoken in talk mode cancels the running turn. It touches no other tool call and no permission.
+
+## Where it works
+
+Claude Code's terminal and the Desktop app's Code tab. Added from claude.ai it installs, but a mod has nothing to do in chat or Cowork.

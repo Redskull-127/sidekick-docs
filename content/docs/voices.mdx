@@ -1,0 +1,34 @@
+---
+title: Voices
+description: Natural Apple voices, and how a sidekick picks one.
+icon: AudioLines
+---
+
+macOS ships compact voices that sound robotic. Apple also has **Premium** and **Enhanced** voices that sound natural, but each is a one-time download from System Settings. Sidekick uses them the moment they exist.
+
+## Get them
+
+```text
+/sidekick voices install
+```
+
+That opens System Settings → Accessibility → Spoken Content. Then: **System Voice → ⓘ Manage Voices → English**, and download **Ava (Premium)** and **Tom (Enhanced)**, or any voice marked Premium or Enhanced. Ava and Zoe are the softest; Tom and Evan the natural male voices.
+
+## How a voice is chosen
+
+Each persona names a base voice. When it speaks, the mod checks what `say` has installed and uses, in order:
+
+1. `<Name> (Premium)`
+2. `<Name> (Enhanced)`
+3. any other natural voice installed
+4. the compact stand-in for that name (Ava → Samantha, Tom → Daniel, and so on)
+
+`/sidekick voices` shows what is installed and which voice the active sidekick resolves to.
+
+## The sixteen
+
+Ava, Zoe, Allison, Samantha, Susan, Evan, Tom, Nathan, Serena, Kate, Oliver, Daniel, Jamie, Karen, Lee, Rishi. New personas pick from this list; edit `VOICES` in `hooks/persona.ts` to add others your Mac has.
+
+## Chimes
+
+A sidekick never announces itself by voice. One soft note plays when a sidekick comes on and after each reply, as "your turn"; a lower note when talk mode ends. They are synthesized by the mod, not audio files.

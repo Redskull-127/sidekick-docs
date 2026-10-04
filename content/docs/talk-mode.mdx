@@ -1,0 +1,51 @@
+---
+title: Talk mode
+description: Hands-free conversation, interrupting, stopping, and the band.
+icon: Ear
+---
+
+`/sidekick talk` toggles talk mode. While it is on, one listener runs the whole time, including while the sidekick speaks and while it works.
+
+## The loop
+
+| Step | What happens |
+| :- | :- |
+| Listen | The microphone opens. Partial words show in the band. |
+| Send | After a 1.4 second pause, what you said is sent as your prompt, verbatim. |
+| Work | Claude works as usual. The band says `working…`. |
+| Speak | The reply's first one or two sentences are read aloud in the sidekick's voice. |
+| Chime | One soft note: your turn. Listening already resumed. |
+
+## Interrupting
+
+Talk over the sidekick. The first **two words that are not its own** cut the speech and your sentence becomes the next prompt. Its own voice reaching the microphone is recognized too, so the mod filters words that match what it just said; see [How it works](/docs/how-it-works#echo).
+
+## Voice commands
+
+| Say | Effect |
+| :- | :- |
+| "stop", "wait", "hold on", "never mind" | Cancels the running turn (nothing is sent). Also cuts speech. |
+| "end talk", "stop talking", "that's all", "goodbye" | Leaves talk mode. Lower chime. |
+
+Everything else is a prompt. Speaking while the sidekick works queues the sentence as the next prompt.
+
+## The band
+
+A row above the prompt shows the state and the keys:
+
+```text
+🔊 Rudy is speaking… talk over to interrupt   s skip   m mute   x end talk
+🎙 listening…  what about the docs            m mute   x end talk
+🦊 Rudy is working… say "stop" to cancel
+❓ Deploy where?  1) Staging  2) Production
+```
+
+`s` skips the current speech, `m` toggles speech, `x` ends talk mode, `l` listens now when idle.
+
+## When it stops on its own
+
+Three listening rounds in a row with nothing heard end talk mode, with a toast. `/sidekick talk` resumes. A new session always starts with talk mode off.
+
+## Tuning
+
+The pause that ends an utterance is `--silence 1.4` and the longest utterance `--max 60`, both in the listener's arguments in `hooks/register.tsx`. The interrupt threshold is the two-word rule in the same file. Add `--lang en-GB` style codes to pin a recognition language; the default is your macOS locale.

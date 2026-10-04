@@ -1,0 +1,38 @@
+---
+title: Develop
+description: Run it from source, test it, change it.
+icon: Code
+---
+
+```sh
+git clone https://github.com/Redskull-127/sidekick
+cd sidekick
+claude plugin validate --strict .   # what the engine reads from the module
+claude plugin test .                # tests/sidekick.test.ts, no session or network
+claude --plugin-dir .               # a session that hot-reloads on save
+```
+
+## Layout
+
+```text
+.claude-plugin/plugin.json      manifest, userConfig, icon
+.claude-plugin/marketplace.json the one-plugin marketplace "meer-mods"
+hooks/register.tsx              every hook and the command
+hooks/persona.ts                presets, generation prompt, the spoken-text and echo helpers
+hooks/listener-source.ts        the Swift listener, as a raw string
+hooks/chime.ts                  the two chimes, synthesized
+types/index.d.ts                the $.state contract
+tests/sidekick.test.ts          ten tests with a fake microphone and fake speech
+```
+
+## Tests
+
+The test kit stubs every call the mod makes. The fake microphone is a queue the test feeds; `pkill` ends a pending listen; speech stays in progress until the test finishes it or the mod hushes it. That is enough to test barge-in, echo, "stop", rapid toggling, and voice answers without audio.
+
+## Changing the listener
+
+Edit the Swift in `hooks/listener-source.ts`. The build is keyed to a hash of that text, so the next `/sidekick talk` recompiles. To iterate faster, paste the Swift into a file and run `swiftc -O listen.swift -o listen` yourself.
+
+## Rules the analyzers hold you to
+
+`claude plugin validate` and the directory's review both read the module statically. Keep every call written as `$.noun.method(...)`, event names as string literals, matchers and paths as literals, pass `$` only to functions declared at the top of the same file, and never name anything `h` or `Fragment` in a `.tsx` file.

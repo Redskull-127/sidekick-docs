@@ -1,0 +1,41 @@
+---
+title: How it works
+description: The hooks, the listener, and the echo filter.
+icon: Cog
+---
+
+Sidekick is one hooks module, `hooks/register.tsx`, plus a small native listener. No server, no daemon, no network of its own.
+
+## The hooks
+
+| Event | What the mod does |
+| :- | :- |
+| `prompt.compose` | Appends one section to the system prompt: the active persona's brief and the rules. |
+| `ui.render` on `AssistantMessage`, `Spinner`, `AskUserQuestion` | Adds the sidekick's header and restyles the spinner word. The engine's own drawing stays underneath. |
+| `ui.render` on `AbovePrompt`, `Pane` | Draws the talk-mode band and the roster pane. |
+| `turn.complete` | Speaks the reply's first sentence or two with `$.audio.speak`. |
+| `tool.call` on `AskUserQuestion` | In talk mode, reads the question aloud, listens, and answers the tool itself when it understood you; otherwise passes the call on so the dialog opens. |
+| `turn.start` | Remembers the running turn so "stop" can abort it. |
+| `command.run` on `sidekick` | The command. |
+
+State the drawings depend on (active persona, listening, speaking, the partial transcript, a pending question) lives in `$.state`, so it survives hot reloads and redraws the band on each change.
+
+## The listener
+
+A mod can't open a microphone, so the mod spawns a small macOS program. Its source ships in `hooks/listener-source.ts` as a readable Swift file; on first use the mod writes it to `/var/tmp/sidekick/listen.swift` and compiles it with `swiftc`. It captures the default microphone through AVFoundation, streams the audio into Apple's speech recognizer (on-device where the language model is installed), prints partial results as they arrive, and exits with the final text when you pause for 1.4 seconds.
+
+In talk mode one listener runs at a time, round after round, for as long as the mode is on. `pkill` on its fixed path stops it.
+
+## Echo
+
+There is no acoustic echo cancellation, so the sidekick's own voice comes back through the microphone as recognized text. The mod keeps its last three utterances as an echo vocabulary:
+
+- A transcript whose words all belong to that vocabulary (allowing one misheard word) is echo and is dropped.
+- Words that aren't in it are yours. Two of them while the sidekick speaks is the interrupt signal; the leading echo words are stripped and the rest becomes your prompt.
+- Nothing listens to timing, because the recognizer reports what it heard well after the speaker goes quiet.
+
+The trade-off: repeating the sidekick's own words straight back at it registers as echo. Rephrase and it goes through.
+
+## Speech
+
+Replies are spoken with the mods API's `$.audio.speak`, which uses macOS `say`. A new utterance always cuts the previous one, so speech never queues. Skipping or interrupting kills `say`. The voice is resolved per reply from what `say -v ?` reports, so a voice you download is used at once.

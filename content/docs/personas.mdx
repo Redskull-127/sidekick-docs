@@ -1,0 +1,52 @@
+---
+title: Personas
+description: Creating, switching and shaping the character that drives your session.
+icon: Users
+---
+
+A sidekick is a small record: a name, a glyph, a color, an Apple voice, a catchphrase, and a character brief of 60 to 120 words. The brief becomes a section of the system prompt while the sidekick is active, so Claude speaks as that character while keeping every ability it has.
+
+## The two that ship
+
+| | Voice | Character |
+| :- | :- | :- |
+| 🧭 **Ada** | Ava | Calm, methodical staff engineer. Reads before writing, names the root cause before the fix. |
+| 🦊 **Rudy** | Tom | Blunt senior developer paged at 3am too often. Prefers deleting code to adding it. Dry, never cruel. |
+
+## Making your own
+
+```text
+/sidekick new <describe someone>
+```
+
+The description goes to Claude (Haiku) through your own account, and the result is checked: the voice has to be one of the [sixteen natural voices](/docs/voices), the glyph one emoji, the color one of six. Anything else falls back to a default. Good descriptions name an attitude and a habit:
+
+- `a patient teacher who explains every step and never assumes`
+- `Mira, a security reviewer who distrusts every input and says so`
+- `an upbeat release engineer who ships small and celebrates green builds`
+
+## What every persona is told
+
+Whatever the character, the same rules ride along:
+
+- Speak in first person as the persona; keep every Claude Code ability.
+- **Open every reply with one plain sentence** stating the outcome. That sentence is what gets spoken.
+- **Keep it short**: the opening sentence, then at most five short lines. Expand only when asked.
+- **Ask, don't guess**: when input or a decision is needed, ask at once with the question tool, one question, short concrete options.
+- "Brief?" or "what did you do?" gets two to four lines. A fix says what was broken and what changed.
+- In talk mode: the whole reply is one to three spoken sentences under sixty words; code and detail go below a `---` line, shown but not read.
+
+## Switching and removing
+
+```text
+/sidekick use Ada      switch
+/sidekick list         everyone, the active one marked
+/sidekick rm Nova      remove
+/sidekick off          plain Claude again
+```
+
+Or open the pane with `/sidekick` and press `1`–`9`.
+
+## Where they live
+
+In Claude Code's plugin store, `~/.claude/plugins/store/`, as plain JSON. The active sidekick and your mute setting persist across sessions; talk mode does not.

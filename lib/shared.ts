@@ -1,16 +1,20 @@
 import { createGetUrl } from 'fumadocs-core/source';
 
-export const appName = 'My App';
+export const appName = 'Sidekick';
+export const siteUrl = 'https://sidekick.meertarbani.in';
 export const docsRoute = '/docs';
 export const docsImageRoute = '/og/docs';
 export const docsContentRoute = '/llms.mdx/docs';
 
-// fill this with your actual GitHub info, for example:
+/** This docs site. */
 export const gitConfig = {
-  user: 'fuma-nama',
-  repo: 'fumadocs',
+  user: 'Redskull-127',
+  repo: 'sidekick-docs',
   branch: 'main',
 };
+
+/** The plugin itself. */
+export const pluginRepoUrl = 'https://github.com/Redskull-127/sidekick';
 
 const getContentUrl = createGetUrl(docsContentRoute);
 

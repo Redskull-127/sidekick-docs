@@ -1,0 +1,32 @@
+---
+title: Troubleshooting
+description: When it doesn't hear, doesn't speak, or hears itself.
+icon: Wrench
+---
+
+<Accordions>
+<Accordion title="It never hears me">
+Run `/var/tmp/sidekick/listen --list-devices` in a terminal. It lists microphones and marks the default. If the default is a virtual or aggregate device, add `--device "MacBook Pro"` (any part of the name) to the listener's arguments in `hooks/register.tsx`. Then `/var/tmp/sidekick/listen --max 8` and speak: you should see `partial:` lines.
+</Accordion>
+<Accordion title="macOS says the microphone or speech recognition is not allowed">
+System Settings → Privacy & Security → Microphone, and → Speech Recognition: enable your terminal app. If it isn't listed, run `tccutil reset Microphone <bundle id>` for your terminal, quit it fully, reopen, and run `/sidekick talk` again.
+</Accordion>
+<Accordion title="Listener build failed">
+`swiftc` needs the Xcode Command Line Tools: `xcode-select --install`. Then delete `/var/tmp/sidekick` and run `/sidekick talk`; the toast shows the compiler's first error if it fails again.
+</Accordion>
+<Accordion title="It answers its own replies">
+That is echo reaching the microphone and slipping past the filter. It happens when a reply is made of words the sidekick had not said in its last three utterances, which is rare. Say "stop", then `/sidekick mute` to confirm the loop ends. If it repeats, open an issue with the reply text; the filter compares words and can learn from the case.
+</Accordion>
+<Accordion title="The voice sounds robotic">
+No natural voice is installed. `/sidekick voices install`, then download Ava (Premium) or Tom (Enhanced). See [Voices](/docs/voices).
+</Accordion>
+<Accordion title="The pane doesn't appear">
+A pane the mod opens on its own waits for a terminal at least 144 columns wide. Run `/sidekick` yourself; a pane you ask for opens at any width.
+</Accordion>
+<Accordion title="It stopped listening by itself">
+Three silent rounds end talk mode. `/sidekick talk` resumes.
+</Accordion>
+<Accordion title="Nothing happens at all">
+`/plugin` → Installed should list `sidekick`. In a `--plugin-dir` session a dim line names a module that failed to load. `claude --debug` writes the reason to the debug log.
+</Accordion>
+</Accordions>
