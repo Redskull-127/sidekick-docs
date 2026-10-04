@@ -22,7 +22,7 @@ export function CopyCommand({ command }: { command: string }) {
       <span aria-hidden className="select-none text-fd-muted-foreground">
         $
       </span>
-      <code className="flex-1 overflow-x-auto whitespace-nowrap text-fd-foreground">{command}</code>
+      <code className="min-w-0 flex-1 overflow-x-auto whitespace-nowrap text-fd-foreground">{command}</code>
       <button
         type="button"
         onClick={copy}

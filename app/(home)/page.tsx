@@ -51,7 +51,7 @@ export default function HomePage() {
       <JsonLd data={{ '@context': 'https://schema.org', '@graph': [website, software] }} />
       <section className="sk-grain border-b border-fd-border">
         <div className="mx-auto grid max-w-6xl gap-12 px-6 pb-20 pt-16 md:grid-cols-[1.1fr_0.9fr] md:items-center md:pt-24">
-          <div>
+          <div className="min-w-0">
             <p className="mb-5 inline-flex items-center gap-2 rounded-full border border-fd-border bg-fd-card px-3 py-1 text-xs font-medium text-fd-muted-foreground">
               <span aria-hidden className="sk-breathe inline-block size-2 rounded-full bg-[var(--sk-gold)]" />A mod for Claude Code
               · macOS
