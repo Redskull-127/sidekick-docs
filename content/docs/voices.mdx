@@ -25,6 +25,15 @@ Each persona names a base voice. When it speaks, the mod checks what `say` has i
 
 `/sidekick voices` shows what is installed and which voice the active sidekick resolves to.
 
+## Give a sidekick a different voice
+
+```text
+/sidekick voice Ava          the active sidekick
+/sidekick voice Rudy Ava     a named one
+```
+
+Any of the sixteen natural names works, and so does the exact name of any voice your Mac has (`/sidekick voices` lists the natural ones; `say -v '?'` in a terminal lists everything). The sidekick confirms by saying its catchphrase in the new voice, and the choice is saved with the persona. `/sidekick voice` on its own tells you what the active sidekick resolves to.
+
 ## The sixteen
 
 Ava, Zoe, Allison, Samantha, Susan, Evan, Tom, Nathan, Serena, Kate, Oliver, Daniel, Jamie, Karen, Lee, Rishi. New personas pick from this list; edit `VOICES` in `hooks/persona.ts` to add others your Mac has.
